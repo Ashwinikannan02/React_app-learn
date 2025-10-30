@@ -3,69 +3,70 @@
 //import Footer from './footer';
 import Course from './Course';
 import{useState,useEffect} from 'react';
+//imported data are tranfered to dummy data
 // import butterfly from './assets/butterfly.jpg';
 // import dragonfly from './assets/dragonfly.jpg';
-import kurthi from './assets/kurthi.jpg';
-import green_silk from './assets/green_silk.jpeg';
-import kurthies from './assets/kurthies.jpg';
-import long_sleeve from './assets/long_sleeve.jpg';
-import royalred from './assets/royalred.jpg';
-import silk_sarree from './assets/silk_saree.jpg';
-import kanjivaram_silk_saree from './assets/kanjivaram_silk_saree.jpeg';
+// import kurthi from './assets/kurthi.jpg';
+// import green_silk from './assets/green_silk.jpeg';
+// import kurthies from './assets/kurthies.jpg';
+// import long_sleeve from './assets/long_sleeve.jpg';
+// import royalred from './assets/royalred.jpg';
+// import silk_sarree from './assets/silk_saree.jpg';
+// import kanjivaram_silk_saree from './assets/kanjivaram_silk_saree.jpeg';
 function CourseList(){
-  //const courses=[
-   const courses=[
-     {
-         id:1,
-          name:  "light gold kurthi",
-           type:" kurthi",
-          rate:500,
-          color:"light color",
-            image : kurthi//"assets/kurthi.jpg" 
-        },
-        { id:2,
-          name:"  Kurthies",
-           type:" kurthi",
-          rate:560,
-          color:"dark blue",
-           image: kurthies//"assets/kurthies.jpg"
-        },
-        { id:3,
-         name:"  Maxi Long red Kurthi",
-           type:" long Kurthi",
-          rate:800,
-          color:"red",
-           image:royalred//"assets/royalred.jpg"
-        },
-        { id:4,
-         name:" silk_saree",
-           type:" saree",
-          rate:980,
-          color:"silk",
-           image: silk_sarree//"assets/silk_saree.jpg"
-        },
-        { id:5,
-         name:" kanjivaram silk saree",
-           type:" saree",
-          rate:1150,
-          color:"brown",
-           image: kanjivaram_silk_saree//"kanjivaram_silk_saree.jpeg"
-        },
-           { id:6,
-            name:" Green silk saree",
-           type:" saree",
-         rate:1200,
-          color:"Green",
-           image: green_silk//"assets/green_silk.jpeg"
-           },
-            {id:7,
-            name:"long_sleeve",
-           type:"kurthi",
-          rate:750,
-          color:"Grey",
-           image: long_sleeve//"assets/long_sleeve.jpg"
-           }
-        ];
+  const [courses,setCourses]=useState(null);
+  //  const courses=[
+  //    {
+  //        id:1,
+  //         name:  "light gold kurthi",
+  //          type:" kurthi",
+  //         rate:500,
+  //         color:"light color",
+  //           image : kurthi//"assets/kurthi.jpg" 
+  //       },
+  //       { id:2,
+  //         name:"  Kurthies",
+  //          type:" kurthi",
+  //         rate:560,
+  //         color:"dark blue",
+  //          image: kurthies//"assets/kurthies.jpg"
+  //       },
+  //       { id:3,
+  //        name:"  Maxi Long red Kurthi",
+  //          type:" long Kurthi",
+  //         rate:800,
+  //         color:"red",
+  //          image:royalred//"assets/royalred.jpg"
+  //       },
+  //       { id:4,
+  //        name:" silk_saree",
+  //          type:" saree",
+  //         rate:980,
+  //         color:"silk",
+  //          image: silk_sarree//"assets/silk_saree.jpg"
+  //       },
+  //       { id:5,
+  //        name:" kanjivaram silk saree",
+  //          type:" saree",
+  //         rate:1150,
+  //         color:"brown",
+  //          image: kanjivaram_silk_saree//"kanjivaram_silk_saree.jpeg"
+  //       },
+  //          { id:6,
+  //           name:" Green silk saree",
+  //          type:" saree",
+  //        rate:1200,
+  //         color:"Green",
+  //          image: green_silk//"assets/green_silk.jpeg"
+  //          },
+  //           {id:7,
+  //           name:"long_sleeve",
+  //          type:"kurthi",
+  //         rate:750,
+  //         color:"Grey",
+  //          image: long_sleeve//"assets/long_sleeve.jpg"
+  //          }
+  //       ];
    
           
     // function handleDelete(id){
@@ -75,19 +76,30 @@ function CourseList(){
 
     // }
     const [dummy,setDummy]=useState("value");
+    const[error,setError]=useState(null);
     useEffect(()=>{
       console.log("effect");
       console.log(dummy);
-      fetch('https://jsonplaceholder.typicode.com/posts')
+      fetch('http://localhost:3000/courses')
       .then(response =>{
         console.log(response);
         return response.json()
-      }).then(data=>console.log(data))
-    },)
+      }).then(data=>setCourses(data))
+       .catch((error)=>{
+        console.log(error.message);
+        setError(error.message);
+      })
+    },[]);
     
-    courses.sort((x,y)=>y.rate-x.rate) 
-    const myCollection = courses.filter((course)=>course.rate>=100)
-    const myList=courses.filter((course)=>course.rate>=150 && course.rate<=200)
+   // courses.sort((x,y)=>x.rate-y.rate) 
+    if(!courses){
+      return( <>
+       <p>error</p>
+       </>
+      )
+    }
+    const myCollection = courses.filter((course)=>course.rate>=100) 
+   const myList=courses.filter((course)=>course.rate>=150 && course.rate<=200)
     const CourseItems=myCollection.map( 
     (course)=>
         <Course
@@ -100,6 +112,7 @@ function CourseList(){
          
         />
     )
+    
     const ListOfItems = myList.map((course)=>
           <Course
           key={course.id} 
@@ -130,6 +143,7 @@ function CourseList(){
         {CourseItems}
        {ListOfItems}
         <button onClick={()=>{setDummy("dummy")}}>click </button> 
+         
         </>
     )
 };

@@ -1,0 +1,57 @@
+
+{
+    "courses" :
+    [
+     {
+         "id":1,
+          "name":  "light gold kurthi",
+           "type":" kurthi",
+          "rate":500,
+          "color":"light color",
+            "image" : "http://localhost:3000/assets/kurthi.jpg"
+        },
+        { "id":2,
+          "name":"  Kurthies",
+           "type":" kurthi",
+          "rate":560,
+          "color":"dark blue",
+           "image": "http://localhost:3000/assets/kurthies.jpg" 
+        },
+        { "id":3,
+         "name":"  Maxi Long red Kurthi",
+           "type":" long Kurthi",
+          "rate":800,
+          "color":"red",
+           "image":"http://localhost:3000/assets/royalred.jpg"
+        },
+        { "id":4,
+         "name":" silk_saree",
+           "type":" saree",
+          "rate":980,
+          "color":"silk",
+           "image":"http://localhost:3000/assets/silk_saree.jpg" 
+        },
+        { "id":5,
+         "name":" kanjivaram silk saree",
+           "type":" saree",
+          "rate":1150,
+          "color":"brown",
+           "image": "http://localhost:3000/assets/kanjivaram_silk_saree.jpeg"
+        },
+           { "id":6,
+            "name":" Green silk saree",
+           "type":" saree",
+         "rate":1200,
+          "color":"Green",
+           "image":"http://localhost:3000/assets/green_silk.jpeg"
+           },
+            {"id":7,
+            "name":"long_sleeve",
+           "type":"kurthi",
+          "rate":750,
+          "color":"Grey",
+           "image": "http://localhost:3000/assets/long_sleeve.jpg"
+           }
+        ]
+        
+    }
