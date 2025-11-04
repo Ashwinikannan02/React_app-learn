@@ -2,6 +2,7 @@
 
 //import Footer from './footer';
 import Course from './Course';
+//import useFetch from './usefetch';
 import{useState,useEffect} from 'react';
 //imported data are tranfered to dummy data
 // import butterfly from './assets/butterfly.jpg';
@@ -14,8 +15,31 @@ import{useState,useEffect} from 'react';
 // import silk_sarree from './assets/silk_saree.jpg';
 // import kanjivaram_silk_saree from './assets/kanjivaram_silk_saree.jpeg';
 function CourseList(){
+  //Array destructuring 
   const [courses,setCourses]=useState(null);
-  //  const courses=[
+  
+    const [dummy,setDummy]=useState("value");
+  const[error,setError]=useState(null) 
+  //const[error,courses,dummy]=useFetch('http://localhost:3000/courses');
+ useEffect(()=>{
+       setTimeout(()=>{
+       console.log("effect");
+       console.log(dummy);
+       fetch('http://localhost:3000/courses')
+       .then(response =>{
+         console.log(response);
+         return response.json()
+       }).then(data=>setCourses(data))
+        .catch((error)=>{
+         console.log(error.message);
+         setError(error.message);
+       })
+     },1000) 
+   }
+     ,[]); 
+ 
+ 
+ //  const courses=[
   //    {
   //        id:1,
   //         name:  "light gold kurthi",
@@ -75,31 +99,19 @@ function CourseList(){
 
 
     // }
-    const [dummy,setDummy]=useState("value");
-    const[error,setError]=useState(null);
-    useEffect(()=>{
-      console.log("effect");
-      console.log(dummy);
-      fetch('http://localhost:3000/courses')
-      .then(response =>{
-        console.log(response);
-        return response.json()
-      }).then(data=>setCourses(data))
-       .catch((error)=>{
-        console.log(error.message);
-        setError(error.message);
-      })
-    },[]);
+   
     
+
    // courses.sort((x,y)=>x.rate-y.rate) 
     if(!courses){
       return( <>
-       <p>error</p>
+      {!error&&<img src ="data/assets\cargando.gif"/>}
+       <p>{error}</p>
        </>
       )
     }
     const myCollection = courses.filter((course)=>course.rate>=100) 
-   const myList=courses.filter((course)=>course.rate>=150 && course.rate<=200)
+    const myList=courses.filter((course)=>course.rate>=150 && course.rate<=200)
     const CourseItems=myCollection.map( 
     (course)=>
         <Course
