@@ -2,8 +2,8 @@
 
 //import Footer from './footer';
 import Course from './Course';
-//import useFetch from './usefetch';
-import{useState,useEffect} from 'react';
+import useFetch from './useFetch';
+
 //imported data are tranfered to dummy data
 // import butterfly from './assets/butterfly.jpg';
 // import dragonfly from './assets/dragonfly.jpg';
@@ -16,28 +16,10 @@ import{useState,useEffect} from 'react';
 // import kanjivaram_silk_saree from './assets/kanjivaram_silk_saree.jpeg';
 function CourseList(){
   //Array destructuring 
-  const [courses,setCourses]=useState(null);
-  
-    const [dummy,setDummy]=useState("value");
-  const[error,setError]=useState(null) 
-  //const[error,courses,dummy]=useFetch('http://localhost:3000/courses');
- useEffect(()=>{
-       setTimeout(()=>{
-       console.log("effect");
-       console.log(dummy);
-       fetch('http://localhost:3000/courses')
-       .then(response =>{
-         console.log(response);
-         return response.json()
-       }).then(data=>setCourses(data))
-        .catch((error)=>{
-         console.log(error.message);
-         setError(error.message);
-       })
-     },1000) 
-   }
-     ,[]); 
- 
+   
+  const[courses,dummy,error]=useFetch('http://localhost:3001/courses');
+
+
  
  //  const courses=[
   //    {
